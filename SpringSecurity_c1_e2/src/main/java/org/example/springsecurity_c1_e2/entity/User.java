@@ -1,8 +1,10 @@
 package org.example.springsecurity_c1_e2.entity;
 
+import ch.qos.logback.core.joran.action.ActionUtil;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
@@ -15,4 +17,9 @@ public class User{
     private int id;
     private String username;
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="users_authorities", joinColumns = @JoinColumn(name="user_id")
+    ,inverseJoinColumns = @JoinColumn(name = "authority_id"))
+    private Set<Authority> authorities;
 }
